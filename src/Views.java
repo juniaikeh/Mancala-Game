@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 
 public class Views extends JPanel
 {
@@ -24,39 +25,26 @@ public class Views extends JPanel
         int x = (parent.getWidth()-BOARD_WIDTH)/2;
         int y = (parent.getHeight()-BOARD_HEIGHT)/2;
         RoundRectangle2D boundary = new RoundRectangle2D.Double(x, y, BOARD_WIDTH,BOARD_HEIGHT,100,100);
-        
-        Ellipse2D.Double a1= new Ellipse2D.Double(x+((BOARD_WIDTH/8))+10   , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double a2= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*2)+10 , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double a3= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*3)+10 , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double a4= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*4)+10 , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double a5= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*5)+10 , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double a6= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*6)+10 , y+OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        
-        Ellipse2D.Double b1= new Ellipse2D.Double(x+((BOARD_WIDTH/8))+10   , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double b2= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*2)+10 , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double b3= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*3)+10 , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double b4= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*4)+10 , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double b5= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*5)+10 , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        Ellipse2D.Double b6= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*6)+10 , y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER , BOARD_WIDTH / 10, BOARD_HEIGHT / 3);
-        
-        Ellipse2D.Double mancalaA= new Ellipse2D.Double(x+((BOARD_WIDTH/8)*7) , y+ OFFSET_FROM_BORDER/2 , BOARD_WIDTH / 10, BOARD_HEIGHT-OFFSET_FROM_BORDER );
-        Ellipse2D.Double mancalaB= new Ellipse2D.Double(x+20 , y+ OFFSET_FROM_BORDER/2, BOARD_WIDTH / 10, BOARD_HEIGHT-OFFSET_FROM_BORDER);
-        
-        
-        g2.draw(a1);
-        g2.draw(a2);
-        g2.draw(a3);
-        g2.draw(a4);
-        g2.draw(a5);
-        g2.draw(a6);
-        g2.draw(b1);
-        g2.draw(b2);
-        g2.draw(b3);
-        g2.draw(b4);
-        g2.draw(b5);
-        g2.draw(b6);
-        g2.draw(mancalaA);
-        g2.draw(mancalaB);
+        ArrayList<Ellipse2D.Double> pits = new ArrayList<>();
+        double topX = BOARD_WIDTH/8;
+        double baseY = y + OFFSET_FROM_BORDER;
+        double pitWidth = BOARD_WIDTH / 10;
+        double pitHeight = BOARD_HEIGHT / 3;
+
+        pits.add(new Ellipse2D.Double(x+(topX*7) , y+ OFFSET_FROM_BORDER/2 , BOARD_WIDTH / 10, BOARD_HEIGHT-OFFSET_FROM_BORDER ));       // Add Player 1 Mancala at index 0
+
+        for (int i = 1; i < 7; i++)                                                 // Top Row Pits
+            pits.add(new Ellipse2D.Double(x+(topX*i)+10, baseY, pitWidth, pitHeight));
+
+        baseY = y+((BOARD_HEIGHT*2)/3)-OFFSET_FROM_BORDER;
+
+        for (int i = 1; i < 7; i++)                                                 // Bottom Row Row Pits
+            pits.add(new Ellipse2D.Double(x+(topX*i)+10, baseY, pitWidth, pitHeight));
+
+        pits.add(new Ellipse2D.Double(x+20 , y+OFFSET_FROM_BORDER/2, BOARD_WIDTH / 10, BOARD_HEIGHT-OFFSET_FROM_BORDER));               // Add Player 2 Mancala at index 13.
+
+        for (Ellipse2D e: pits)
+            g2.draw(e);
         
         g2.setStroke(new BasicStroke(5));
         g2.draw(boundary);
