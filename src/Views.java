@@ -9,13 +9,11 @@ public class Views extends JPanel
     private static final int BOARD_WIDTH = 700;
     private static final int BOARD_HEIGHT = 300;
     private static final int OFFSET_FROM_BORDER = 30;
-    private JPanel player1 = new JPanel();
-    private JPanel player2 = new JPanel();
+    private ArrayList<Ellipse2D.Double> pits;
 
     Views()
     {
-        add(player1, "West");
-        add(player2, "East");
+        pits = new ArrayList<>();
     }
 
     public void paintComponent(Graphics g)
@@ -25,7 +23,6 @@ public class Views extends JPanel
         int x = (parent.getWidth()-BOARD_WIDTH)/2;
         int y = (parent.getHeight()-BOARD_HEIGHT)/2;
         RoundRectangle2D boundary = new RoundRectangle2D.Double(x, y, BOARD_WIDTH,BOARD_HEIGHT,100,100);
-        ArrayList<Ellipse2D.Double> pits = new ArrayList<>();
         double topX = BOARD_WIDTH/8;
         double baseY = y + OFFSET_FROM_BORDER;
         double pitWidth = BOARD_WIDTH / 10;
