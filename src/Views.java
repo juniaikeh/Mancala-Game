@@ -57,6 +57,7 @@ public class Views extends JPanel
         g2.draw(b6);
         g2.draw(mancalaA);
         g2.draw(mancalaB);
+        
         g2.setStroke(new BasicStroke(5));
         g2.draw(boundary);
     }
