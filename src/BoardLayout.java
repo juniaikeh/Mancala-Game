@@ -4,16 +4,18 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 
-public class Views extends JPanel
+public class BoardLayout extends JPanel
 {
     private static final int BOARD_WIDTH = 700;
     private static final int BOARD_HEIGHT = 300;
     private static final int OFFSET_FROM_BORDER = 30;
     private ArrayList<Ellipse2D.Double> pits;
+    private Model model;
 
-    Views()
+    BoardLayout(Model m)
     {
         pits = new ArrayList<>();
+        model = m;
     }
 
     public void paintComponent(Graphics g)
@@ -27,7 +29,6 @@ public class Views extends JPanel
         double baseY = y + OFFSET_FROM_BORDER;
         double pitWidth = BOARD_WIDTH / 10;
         double pitHeight = BOARD_HEIGHT / 3;
-
         pits.add(new Ellipse2D.Double(x+(topX*7) , y+ OFFSET_FROM_BORDER/2 , pitWidth, BOARD_HEIGHT-OFFSET_FROM_BORDER ));       // Add Player 1 Mancala at index 0
 
         for (int i = 1; i < 7; i++)                                                 // Top Row Pits
@@ -40,10 +41,12 @@ public class Views extends JPanel
 
         pits.add(new Ellipse2D.Double(x+20 , y+OFFSET_FROM_BORDER/2, pitWidth, BOARD_HEIGHT-OFFSET_FROM_BORDER));               // Add Player 2 Mancala at index 13.
 
+        g2.setStroke(new BasicStroke(3));
         for (Ellipse2D e: pits)
             g2.draw(e);
         
         g2.setStroke(new BasicStroke(5));
+        setBackground(Color.CYAN);
         g2.draw(boundary);
     }
 }
