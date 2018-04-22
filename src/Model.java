@@ -26,33 +26,4 @@ public class Model
         for (int i = 0; i < 14; i++)
             stoneCount.add(0);
     }
-
-    void remove(int index)
-    {
-        stoneCount.set(index, stoneCount.get(index)-1);
-    }
-
-    void add(int index)
-    {
-        stoneCount.set(index, stoneCount.get(index)+1);
-    }
-
-    void add(int index, int count) { stoneCount.set(index, count);}
-
-    void setAll(int count) { for (int i = 0; i < stoneCount.size(); i++) stoneCount.set(i, count);}
-
-    int getCount(int index)
-    {
-        return stoneCount.get(index);
-    }
-
-    boolean isEmpty(int index)
-    {
-        return stoneCount.get(index) == 0;
-    }
-
-    void capture(int index)
-    {
-        stoneCount.set(index, stoneCount.get(index) + stoneCount.get(pair.get(index)));
-    }
 }
