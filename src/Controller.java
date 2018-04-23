@@ -15,8 +15,7 @@ public class Controller
 
     private class mouseListener extends MouseAdapter
     {
-        @Override
-        public void mouseClicked(MouseEvent e)
+        public void mousePressed(MouseEvent e)
         {
             int result = v.insideShape(e.getPoint());
             if (result != -1)
