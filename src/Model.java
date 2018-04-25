@@ -24,7 +24,6 @@ public class Model
     Model(int count)
     {
         initializeMap();
-        System.out.println(pair.toString());
         stoneCount = new ArrayList<>(14);
         for (int i = 0; i < 14; i++)
             stoneCount.add(count);

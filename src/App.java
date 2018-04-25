@@ -2,8 +2,8 @@ import javax.swing.*;
 
 public class App
 {
-    static final int FRAME_WIDTH = 800;
-    static final int FRAME_HEIGHT = 400;
+    static final int FRAME_WIDTH = 900;
+    static final int FRAME_HEIGHT = 500;
     App()
     {
         ThemeSelect themeSelect = new ThemeSelect();

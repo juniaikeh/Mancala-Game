@@ -3,6 +3,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.MouseListener;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.RoundRectangle2D;
@@ -13,6 +14,8 @@ public class View extends JPanel implements ChangeListener
     private static final int BOARD_WIDTH = 700;
     private static final int BOARD_HEIGHT = 300;
     private static final int OFFSET_FROM_BORDER = 30;
+    private static final double pitWidth = BOARD_WIDTH / 10;
+    private static final double pitHeight = BOARD_HEIGHT / 3;
     private int x = (App.FRAME_WIDTH-BOARD_WIDTH)/2;
     private int y = (App.FRAME_HEIGHT-BOARD_HEIGHT)/2;
     private ArrayList<Shape> pits;
@@ -28,8 +31,6 @@ public class View extends JPanel implements ChangeListener
         backgroundColor = col;
         double topX = BOARD_WIDTH/8;
         double baseY = y + OFFSET_FROM_BORDER;
-        double pitWidth = BOARD_WIDTH / 10;
-        double pitHeight = BOARD_HEIGHT / 3;
 
         pits.add(new RoundRectangle2D.Double(x+20, y+OFFSET_FROM_BORDER/2, pitWidth, BOARD_HEIGHT-OFFSET_FROM_BORDER, 60, 60));// Add Player 2 Mancala at index 13.
 
@@ -62,11 +63,18 @@ public class View extends JPanel implements ChangeListener
     {
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(3));
+        g2.setFont(new Font("default", Font.BOLD, 20));
         for (int i = 0; i < pits.size(); i++)
         {
             Shape e = pits.get(i);
             Rectangle bound = e.getBounds();
             g2.draw(e);
+            if (i != 0 && i != 7)
+            {
+                String s = (i < 7 ? "A":"B") + String.valueOf(i%7);
+                int sy = (int)(bound.getCenterY() + (i < 7 ? pitHeight/2+20 : -(pitHeight/2+5)));
+                g2.drawString(s, (int)bound.getCenterX()-10, sy);
+            }
             int count = stoneCount.get(i);
             Ellipse2D stone;
             double row = bound.getCenterX()-12;
@@ -81,6 +89,14 @@ public class View extends JPanel implements ChangeListener
                 g2.fill(stone);
             }
         }
+        String[] s1 = {"M","A","N","C","A","L","A"," ", "A"};
+        int sx = x-30;
+        for (int i = 1; i <= s1.length; i++)
+            g2.drawString(s1[i-1], sx, y + 32*i);
+        s1[s1.length-1] = "B";
+        sx = x + BOARD_WIDTH + 20;
+        for (int i = 1; i <= s1.length; i++)
+            g2.drawString(s1[i-1], sx, y + 32*i);
         RoundRectangle2D boundary = new RoundRectangle2D.Double(x, y, BOARD_WIDTH,BOARD_HEIGHT,100,100);
         g2.setStroke(new BasicStroke(5));
         setBackground(backgroundColor);
