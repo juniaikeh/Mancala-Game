@@ -24,12 +24,18 @@ public class View extends JPanel implements ChangeListener
 
     View(Model m, Color col)
     {
+        setLayout(new BorderLayout());
         model = m;
         stoneCount = m.getStoneCount();
         pits = new ArrayList<>();
         backgroundColor = col;
         double topX = BOARD_WIDTH/8;
         double baseY = y + OFFSET_FROM_BORDER;
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(backgroundColor);
+        JButton undo = new JButton("Undo");
+        buttonPanel.add(undo);
+        add(buttonPanel, "South");
 
         pits.add(new RoundRectangle2D.Double(x+20, y+OFFSET_FROM_BORDER/2, pitWidth, BOARD_HEIGHT-OFFSET_FROM_BORDER, 60, 60));// Add Player 2 Mancala at index 13.
 

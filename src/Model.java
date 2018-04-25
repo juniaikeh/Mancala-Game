@@ -2,7 +2,7 @@ import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Model
+class Model
 {
     private ArrayList<Integer> stoneCount;
     private static HashMap<Integer, Integer> pair;
